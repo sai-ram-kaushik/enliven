@@ -1,7 +1,9 @@
+import PageUnderMaintainence from "@/components/PageUnderMaintainence";
+
 export default function page() {
     return(
         <main>
-            consult
+            <PageUnderMaintainence pageName={"consulting"}/>
         </main>
     )
 }

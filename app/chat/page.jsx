@@ -19,11 +19,22 @@ export default function page() {
         setLoading(true);
         setMessages((prevMessages) => [...prevMessages, chat]);
         setChat("");
-        const response = await send(chat);
-        setMessages((prevMessages) => [...prevMessages, response]);
-        setLoading(false);
-        console.log(response);
 
+        try {
+            const response = await fetch(`/api/chat`, {
+                method: "POST",
+                body: JSON.stringify({ prompt: chat })
+            })
+            
+            if (!response.ok) return;
+            
+            const json = await response.json();
+
+            setMessages((prevMessages) => [...prevMessages, json]);
+            setLoading(false);
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
 
